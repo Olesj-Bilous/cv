@@ -24,4 +24,4 @@ export const model: Cv = {
   }
 }
 
-export const { context, ModelProvider, consumerBuilder, useModelContext } = buildContext<Cv>();
+export const { context, ModelProvider, selectorChainer } = buildContext<Cv>();

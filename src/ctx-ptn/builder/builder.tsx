@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext, useContext } from 'react';
 
 export const buildContext = function<T>() {
   const context = createContext<null|T>(null);
@@ -7,11 +7,11 @@ export const buildContext = function<T>() {
   return {
     context,
     ModelProvider: modelProviderBuilder(context),
-    consumerBuilder: modelConsumerBuilder(useModelContext)
+    selectorChainer: modelConsumerBuilder(useModelContext)
   }
 }
 
-export const consumerChainer = function <T, U>(useSelector: () => T, chainSelector: (model: T) => U) {
+export const selectorChainer = function <T, U>(useSelector: () => T, chainSelector: (model: T) => U) {
   return function useChainSelector() {
     return chainSelector(useSelector());
   }
@@ -26,7 +26,7 @@ const modelHookBuilder = function <TRoot>(context: React.Context<null | TRoot>) 
 }
 
 const modelProviderBuilder = function<T>(context: React.Context<null|T>) {
-  return (props: {model: T, children?: ReactNode}) => (
+  return (props: { model: T, children?: ReactNode }) => (
     <context.Provider value={props.model}>
       {props.children}
     </context.Provider>

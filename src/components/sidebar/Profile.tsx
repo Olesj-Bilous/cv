@@ -1,5 +1,5 @@
-import { consumerChainer } from "ctx-ptn/builder/builder";
-import { isIconicListChecksAll } from "../../types/checks/profile";
+import { selectorChainer } from "ctx-ptn/builder/builder";
+import { isIconicListChecksFirst } from "../../types/checks/profile";
 import { IconicListConsumer } from "./iconic-items/IconicItem";
 
 export function ProfileConsumer(useSelector: () => Profile) {
@@ -9,8 +9,8 @@ export function ProfileConsumer(useSelector: () => Profile) {
     for (const key in model) {
       const chainSelector = (m: typeof model) => m[key as keyof typeof model]
       const section = chainSelector(model);
-      if (isIconicListChecksAll(section) && isIconicListChecksAll([{icon:'lol', content:'haha'}, {icon:'um', contet: 'oof'}])) {
-        const Consumer = IconicListConsumer(consumerChainer(useSelector, chainSelector as (m: typeof model) => IconicItem[]));
+      if (isIconicListChecksFirst(section)) {
+        const Consumer = IconicListConsumer(selectorChainer(useSelector, chainSelector as (m: typeof model) => IconicItem[]));
         sections.push(Consumer);
       }
     }
