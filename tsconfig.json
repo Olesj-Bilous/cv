@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
+	"baseUrl": "./src/",
+	"rootDirs": ["./src/", "./node_modules/"],
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
