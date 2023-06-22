@@ -7,7 +7,7 @@ export const buildContext = function<T>() {
   return {
     context,
     ModelProvider: modelProviderBuilder(context),
-    consumerBuilder: modelConsumerBuilder(useModelContext)
+    selectorProvider: modelConsumerBuilder(useModelContext)
   }
 }
 

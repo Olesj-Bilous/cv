@@ -1,5 +1,7 @@
 import { buildContext } from "ctx-ptn/builder/builder";
 
+export const { context, ModelProvider, selectorProvider } = buildContext<Cv>();
+
 export const model: Cv = {
   name: 'Olesj Bilous',
   profession: 'Software developer',
@@ -23,5 +25,3 @@ export const model: Cv = {
     projects: []
   }
 }
-
-export const { context, ModelProvider, consumerBuilder } = buildContext<Cv>();
