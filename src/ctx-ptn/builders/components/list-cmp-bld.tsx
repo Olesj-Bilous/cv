@@ -31,7 +31,9 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<TItem
         <ul>
           {
             model.map((item, index) => {
-              const Item = builder.addModelSelector(selectorChainer(selector, list => list[index])).Component;
+              const Item = builder.addModelSelector(
+                selectorChainer(selector, list => list[index])
+              ).Component;
 
               return (
                 <li key={index}>

@@ -13,7 +13,7 @@ type IconicItem = {
   
 interface RatedSkill {
   skill: string,
-  rating: number
+  rating: number,
+  scale: number
 }
 
-const isRatedSkill = (value: any): value is RatedSkill => 'skill' in value && 'rating' in value;

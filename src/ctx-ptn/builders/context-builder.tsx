@@ -2,10 +2,8 @@ import { ReactNode, createContext, useContext } from 'react';
 
 export const buildContext = function <TRoot>() {
   const context = createContext<null | TRoot>(null);
-  const useRootContext = modelHookBuilder(context);
-
   return {
-    useRootContext,
+    useRootContext: modelHookBuilder(context),
     ModelProvider: modelProviderBuilder(context)
   }
 }
