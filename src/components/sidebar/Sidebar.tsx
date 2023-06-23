@@ -1,7 +1,34 @@
-import React from 'react';
-import { selectorProvider } from 'models/model';
-import { ProfileConsumer } from './Profile';
+import { ComponentBuilder } from 'ctx-ptn/builders/components/cmp-bld';
+import { ProfileBuilder } from './Profile';
 
-const Sidebar = selectorProvider(root => root.profile)(ProfileConsumer)
+export default class SidebarBuilder extends ComponentBuilder<string> {
+  constructor(useModelSelector?: () => string, profileBuilder?: ProfileBuilder) {
+    super(useModelSelector);
+    this.profileBuilder = profileBuilder ?? null;
+  }
 
-export default Sidebar;
+  protected profileBuilder: null | ProfileBuilder;
+  setProfileBuilder(builder: ProfileBuilder) {
+    const clone = this.clone()
+    clone.profileBuilder = builder;
+    return clone;
+  }
+
+  get Component() {
+    this.checkRequired();
+    const useModelSelector = this.useModelSelector!;
+    const profileBuilder = this.profileBuilder!;
+
+    return function Sidebar() {
+      const model = useModelSelector();
+      return (
+        <header>
+          <div className='img-ctn'>
+            <img src={model} alt='profile-img' />
+          </div>
+          {profileBuilder.Component()}
+        </header>
+      )
+    }
+  }
+}

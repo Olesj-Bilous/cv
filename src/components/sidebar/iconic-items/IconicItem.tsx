@@ -1,44 +1,37 @@
-import { selectorChainer } from "ctx-ptn/builder/builder";
+import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
+import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { selectorChainer } from "ctx-ptn/builders/context-builder";
 import { isEmailAddress, isPhoneNumber, isUrl } from "utils/check-string";
 
-export function IconicListConsumer(useSelector: () => IconicItem[]) {
-  return function IconicList() {
-    const model = useSelector();
-    return (
-      <ul>
-        {
-          model.map((item, index) => {
-            const Consumer = IconicItemConsumer(selectorChainer(useSelector, thisModel => thisModel[index]));
-            return (<Consumer key={index} />);
-          })
-        }
-      </ul>
-    );
-  };
-}
+export class IconicListBuilder extends ListComponentBuilder<IconicItem> { }
 
-export function IconicItemConsumer(useSelector: () => IconicItem) {
-  return function IconicItem() {
-    const model = useSelector();
-    let content;
-    if (isUrl(model.content)) {
-      content = <a href={`//${model.content}`}>{model.content}</a>
-    } else if (isEmailAddress(model.content)) {
-      content = <a href={`$mailto:{model.content}`}>{model.content}</a>
-    } else if (isPhoneNumber(model.content)) {
-      content = <a href={`tel:${model.content}`}>{model.content}</a>
-    } else {
-      content = <>{model.content}</>
+export class IconicItemBuilder extends ComponentBuilder<IconicItem> {
+  get Component() {
+    if (!this.hasRequired) throw ComponentBuilder.missingRequiredError;
+    const selector = this.useModelSelector!;
+
+    return function IconicItem() {
+      const model = selector();
+      let content;
+      if (isUrl(model.content)) {
+        content = <a href={`//${model.content}`}>{model.content}</a>
+      } else if (isEmailAddress(model.content)) {
+        content = <a href={`$mailto:{model.content}`}>{model.content}</a>
+      } else if (isPhoneNumber(model.content)) {
+        content = <a href={`tel:${model.content}`}>{model.content}</a>
+      } else {
+        content = model.content;
+      }
+      return (
+        <div className="iconic">
+          <div className="icon-ctn">
+            <span className={model.icon}></span>
+          </div>
+          <div className="content">
+            {content}
+          </div>
+        </div>
+      );
     }
-    return (
-      <li>
-        <div className="icon-ctn">
-          <span className={model.icon}></span>
-        </div>
-        <div className="content">
-          {content}
-        </div>
-      </li>
-    );
   }
 }

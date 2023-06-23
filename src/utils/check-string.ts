@@ -3,7 +3,7 @@ export const isPhoneNumber = (prop: string) => checker(prop.replaceAll(' ', ''),
 );
 
 export const isEmailAddress = (prop: string) => checker(prop,
-  /^[\w-\.]+@[\w-]+\.+[\w-]{2,4}$/i
+  /^[-\w\.]+@[-\w]+\.[-\w]{2,4}$/i
 );
 
 export const isUrl = (prop: string) => checker(prop,
