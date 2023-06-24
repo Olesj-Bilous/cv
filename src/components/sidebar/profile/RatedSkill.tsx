@@ -19,7 +19,7 @@ export class RatedSkillBuilder extends ComponentBuilder<RatedSkill> {
       const stars = []
       for (let i = 0; i < scale; i++) {
         const star = i < rating ? icon({ name: 'star', style: 'solid' }) : icon({ name: 'star', style: 'regular' });
-        stars.push(<FontAwesomeIcon icon={star} />)
+        stars.push(<FontAwesomeIcon key={i} icon={star} />)
       }
 
       return (

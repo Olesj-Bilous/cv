@@ -1,15 +1,15 @@
 interface Cv {
-  name: string,
-  profession: string,
   img: string,
-  introduction: string,
   profile: Profile,
-  main: Main
+  main: DisplayList<DisplayList<LongPeriod>>
 }
 
 interface DisplayList<TItem> {
   title: string,
-  items: TItem[]
+  items: TItem[],
+  className?: string,
+  subtitle?: string,
+  introduction?: string
 }
 
 interface Period {

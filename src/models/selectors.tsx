@@ -5,6 +5,7 @@ import { RatedSkillBuilder, RatedSkillListBuilder } from "components/sidebar/pro
 import ProfileBuilder from "components/sidebar/profile/Profile";
 import SidebarBuilder from "components/sidebar/Sidebar";
 import { useRootContext } from "./context";
+import MainBuilder from "components/main/Main";
 
 const iconicListBuilder = new IconicListBuilder(undefined, new IconicItemBuilder());
 
@@ -19,5 +20,8 @@ const profileBuilder = new ProfileBuilder(selectorChainer(useRootContext, root =
   periodListBuilder,
   ratedSkillListBuilder
 );
+
+export const Main = new MainBuilder(selectorChainer(useRootContext, root => root.cv.main),
+  periodListBuilder).Component;
 
 export const Sidebar = new SidebarBuilder(selectorChainer(useRootContext, root => root.cv.img), profileBuilder).Component;

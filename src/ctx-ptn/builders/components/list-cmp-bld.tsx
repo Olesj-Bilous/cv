@@ -29,8 +29,13 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<Displ
       const model = selector();
 
       return (
-        <section>
-          <Title mainTitle={model.title} />
+        <section className={model.className ?? model.title.replaceAll(/[^a-zA-Z\s]+/g, '').replaceAll(/\s+/g, '-').toLowerCase()}>
+          <Title mainTitle={model.title} subTitle={model.subtitle} />
+          {model.introduction && (
+            <div>
+              {model.introduction}
+            </div>
+          )}
           <ul>
             {
               model.items.map((item, index) => {

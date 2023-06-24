@@ -1,10 +1,7 @@
 
 
 const cv: Cv = {
-  name: 'Olesj Bilous',
-  profession: 'Software developer',
   img: 'logo192.png',
-  introduction: '',
   profile: {
     profile: {
       title: 'Profiel',
@@ -47,14 +44,16 @@ const cv: Cv = {
     } 
   },
   main: {
-    experience: {
+    title: 'Olesj Bilous',
+    subtitle: 'Software developer',
+    introduction: 'I delight in recursion.',
+    items: [{
       title: 'Ervaring',
       items: []
-    },
-    projects: {
+    }, {
       title: 'Projecten',
       items: []
-    }
+    }]
   }
 }
 

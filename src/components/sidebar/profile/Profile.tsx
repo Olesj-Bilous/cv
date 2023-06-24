@@ -27,13 +27,13 @@ export default class ProfileBuilder extends ComponentBuilder<Profile> {
     skillListBuilder: null
   }
   
-  //get hasRequired() {
-  //  if (!super.hasRequired) return false;
-  //  for (const key in this.builders) {
-  //    if (this.builders[key as keyof typeof this.builders] == null) return false;
-  //  }
-  //  return true;
-  //}
+  get hasRequired() {
+    if (!super.hasRequired) return false;
+    for (const key in this.builders) {
+      if (this.builders[key as keyof typeof this.builders] == null) return false;
+    }
+    return true;
+  }
   
   setIconicListBuilder(builder: IconicListBuilder) {
     const clone = this.clone();
