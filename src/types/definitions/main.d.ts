@@ -1,4 +1,4 @@
 interface Main {
-  experience: LongPeriod[],
-  projects: LongPeriod[]
+  experience: DisplayList<LongPeriod>,
+  projects: DisplayList<LongPeriod>
 }

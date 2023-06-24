@@ -36,7 +36,7 @@ export class PeriodBuilder extends ComponentBuilder<Period> {
         <div className="period">
           <Title mainTitle={model.mainTitle} subTitle={model.subTitle} />
           <div className="date">
-            {`${model.startDate.toLocaleDateString(settings.locales, model.formatOptions)}${end && ` - ${end}`}`}
+            {`${model.startDate.toLocaleDateString(settings.locales, model.formatOptions)}${end ? ` - ${end}` : ''}`}
           </div>
           {
             isLongPeriod(model) && (

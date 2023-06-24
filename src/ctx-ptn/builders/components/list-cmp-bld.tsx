@@ -1,8 +1,9 @@
 import { ComponentBuilder } from "./cmp-bld";
 import { selectorChainer } from "../context-builder";
+import Title from "components/Title";
 
-export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<TItem[]> {
-  constructor(useModelSelector?: () => TItem[], itemBuilder?: ComponentBuilder<TItem>) {
+export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<DisplayList<TItem>> {
+  constructor(useModelSelector?: () => DisplayList<TItem>, itemBuilder?: ComponentBuilder<TItem>) {
     super(useModelSelector);
     this.itemBuilder = itemBuilder ?? null;
   }
@@ -28,21 +29,24 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<TItem
       const model = selector();
 
       return (
-        <ul>
-          {
-            model.map((item, index) => {
-              const Item = builder.addModelSelector(
-                selectorChainer(selector, list => list[index])
-              ).Component;
+        <section>
+          <Title mainTitle={model.title} />
+          <ul>
+            {
+              model.items.map((item, index) => {
+                const Item = builder.addModelSelector(
+                  selectorChainer(selector, list => list.items[index])
+                ).Component;
 
-              return (
-                <li key={index}>
-                  <Item />
-                </li>
-              )
-            })
-          }
-        </ul>
+                return (
+                  <li key={index}>
+                    <Item />
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </section>
       );
     }
   }

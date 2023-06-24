@@ -1,5 +1,4 @@
 import { ComponentBuilder } from 'ctx-ptn/builders/components/cmp-bld';
-import { ProfileBuilder } from './profile/Profile';
 
 export default class SidebarBuilder extends ComponentBuilder<string> {
   constructor(useModelSelector?: () => string, profileBuilder?: ComponentBuilder<Profile>) {

@@ -79,7 +79,7 @@ export default class ProfileBuilder extends ComponentBuilder<Profile> {
 
         builder && leaves.push(
           builder.addModelSelector(
-            selectorChainer(useSelector, chainSelector as (m: typeof model) => IconicItem[] & Period[] & RatedSkill[])
+            selectorChainer(useSelector, chainSelector as (m: typeof model) => DisplayList<IconicItem> & DisplayList<Period> & DisplayList<RatedSkill>)
           ).Component
         );
       }

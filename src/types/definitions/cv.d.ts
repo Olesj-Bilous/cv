@@ -7,9 +7,9 @@ interface Cv {
   main: Main
 }
 
-interface LocaleSettings {
-  locales: Intl.LocalesArgument,
-  present: string
+interface DisplayList<TItem> {
+  title: string,
+  items: TItem[]
 }
 
 interface Period {

@@ -1,9 +1,9 @@
 interface Profile {
-  profile: IconicItem[],
-  languages: RatedSkill[],
-  technologies: IconicItem[],
-  theory: IconicItem[],
-  degrees: Period[]
+  profile: DisplayList<IconicItem>,
+  languages: DisplayList<RatedSkill>,
+  technologies: DisplayList<IconicItem>,
+  theory: DisplayList<IconicItem>,
+  degrees: DisplayList<Period>
 }
 
 type IconicItem = {
