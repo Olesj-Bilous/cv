@@ -1,5 +1,7 @@
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export class RatedSkillListBuilder extends ListComponentBuilder<RatedSkill> {}
 
@@ -16,7 +18,8 @@ export class RatedSkillBuilder extends ComponentBuilder<RatedSkill> {
 
       const stars = []
       for (let i = 0; i < scale; i++) {
-        stars.push(<span className={`fa fa-star ${i < rating && 'solid'}`}></span>)
+        const star = i < rating ? icon({ name: 'star', style: 'solid' }) : icon({ name: 'star', style: 'regular' });
+        stars.push(<FontAwesomeIcon icon={star} />)
       }
 
       return (

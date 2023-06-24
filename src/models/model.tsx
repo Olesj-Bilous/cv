@@ -1,27 +1,4 @@
-import { PeriodBuilder, PeriodListBuilder } from "components/Period"; 
-import { ProfileBuilder } from "components/sidebar/Profile";
-import { RatedSkillBuilder, RatedSkillListBuilder } from "components/sidebar/RatedSkill";
-import SidebarBuilder from "components/sidebar/Sidebar";
-import { IconicItemBuilder, IconicListBuilder } from "components/sidebar/iconic-items/IconicItem";
-import { buildContext, selectorChainer } from "ctx-ptn/builders/context-builder";
 
-export const { useRootContext, ModelProvider } = buildContext<CvDocument>();
-
-const iconicListBuilder = new IconicListBuilder(undefined, new IconicItemBuilder());
-
-const periodListBuilder = new PeriodListBuilder(undefined, new PeriodBuilder(undefined,
-  selectorChainer(useRootContext, root => root.localeSettings)
-));
-
-const ratedSkillListBuilder = new RatedSkillListBuilder(undefined, new RatedSkillBuilder());
-
-const profileBuilder = new ProfileBuilder(selectorChainer(useRootContext, root => root.cv.profile),
-  iconicListBuilder,
-  periodListBuilder,
-  ratedSkillListBuilder
-);
-
-export const Sidebar = new SidebarBuilder(selectorChainer(useRootContext, root => root.cv.img), profileBuilder).Component;
 
 const cv: Cv = {
   name: 'Olesj Bilous',
@@ -30,13 +7,21 @@ const cv: Cv = {
   introduction: '',
   profile: {
     profile: [{
-      icon: 'fa fa-github',
+      icon: 'github',
       content: 'github.com'
     }, {
-      icon: 'fa fa-country',
-      content: 'Belgium'
+      icon: 'map-marker',
+      content: 'Gent, België'
     }],
-    languages: [],
+    languages: [{
+      skill: 'Nederlands',
+      rating: 5,
+      scale: 5
+    }, {
+      skill: 'Français',
+      rating: 3,
+      scale: 5
+    }],
     technologies: [],
     theory: [],
     degrees: [{

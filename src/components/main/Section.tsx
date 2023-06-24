@@ -1,3 +1,5 @@
-const Section = () => (<section></section>)
+import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld"
 
-export default Section;
+export default class PeriodSectionBuilder extends ListComponentBuilder<Period[]> {
+  
+}

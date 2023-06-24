@@ -8,7 +8,7 @@ const Main = () => {
     <main>
       <Title mainTitle='' subTitle=''></Title>
         {
-          sections.map(section => <Section />)
+          //sections.map(section => <Section />)
         }
     </main>
   );

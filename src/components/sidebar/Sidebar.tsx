@@ -1,14 +1,14 @@
 import { ComponentBuilder } from 'ctx-ptn/builders/components/cmp-bld';
-import { ProfileBuilder } from './Profile';
+import { ProfileBuilder } from './profile/Profile';
 
 export default class SidebarBuilder extends ComponentBuilder<string> {
-  constructor(useModelSelector?: () => string, profileBuilder?: ProfileBuilder) {
+  constructor(useModelSelector?: () => string, profileBuilder?: ComponentBuilder<Profile>) {
     super(useModelSelector);
     this.profileBuilder = profileBuilder ?? null;
   }
 
-  protected profileBuilder: null | ProfileBuilder;
-  setProfileBuilder(builder: ProfileBuilder) {
+  protected profileBuilder: null | ComponentBuilder<Profile>;
+  setProfileBuilder(builder: ComponentBuilder<Profile>) {
     const clone = this.clone()
     clone.profileBuilder = builder;
     return clone;

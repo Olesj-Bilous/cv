@@ -5,7 +5,7 @@ export abstract class ComponentBuilder<TModel> {
     this.useModelSelector = useModelSelector ?? null;
   }
 
-  clone() : typeof this {
+  clone() : this {
     const proto = Object.getPrototypeOf(this);
     const obj = Object.create(proto);
     return Object.assign(obj, this);

@@ -14,11 +14,11 @@ export const isPeriodListChecksFirst = (value: any): value is Period[] => isList
 
 export const isPeriodListChecksAll = (value: any): value is Period[] => isListOfTypeChecksAll(value, isPeriod);
 
-export const isRatedSkill = (value: any): value is RatedSkill => 'skill' in value && 'rating' in value && 'scale' in value;
+export const isRatedSkill = (value: any): value is RatedSkill => value != null && 'skill' in value && 'rating' in value && 'scale' in value;
 
-export const isRatedSkillListChecksFirst = (value: any): value is RatedSkill[] => isListOfTypeChecksFirst(value, isPeriod);
+export const isRatedSkillListChecksFirst = (value: any): value is RatedSkill[] => isListOfTypeChecksFirst(value, isRatedSkill);
 
-export const isRatedSkillListChecksAll = (value: any): value is RatedSkill[] => isListOfTypeChecksAll(value, isPeriod);
+export const isRatedSkillListChecksAll = (value: any): value is RatedSkill[] => isListOfTypeChecksAll(value, isRatedSkill);
 
 const isListOfTypeChecksFirst = function <T>(value: any, checker: (val: any) => val is T) {
   return value != null && Array.isArray(value) && checker(value[0]);

@@ -1,7 +1,16 @@
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
 import { selectorChainer } from "ctx-ptn/builders/context-builder";
 import { isEmailAddress, isPhoneNumber, isUrl } from "utils/check-string";
+
+const icons = {
+  'map-marker': icon({ name: 'map-marker' }),
+  'envelope': icon({name:'envelope'}),
+  'phone': icon({ name: 'phone' }),
+  'github': icon({ name: 'github', style: 'brands' })
+}
 
 export class IconicListBuilder extends ListComponentBuilder<IconicItem> { }
 
@@ -25,7 +34,7 @@ export class IconicItemBuilder extends ComponentBuilder<IconicItem> {
       return (
         <div className="iconic">
           <div className="icon-ctn">
-            <span className={model.icon}></span>
+            <FontAwesomeIcon icon={icons[model.icon as keyof typeof icons]} />
           </div>
           <div className="content">
             {content}

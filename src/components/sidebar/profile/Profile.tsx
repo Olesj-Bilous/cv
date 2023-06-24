@@ -1,11 +1,11 @@
 import { selectorChainer } from "ctx-ptn/builders/context-builder";
-import { isIconicListChecksFirst, isPeriodListChecksFirst, isRatedSkillListChecksFirst } from "../../types/checks/profile";
-import { IconicListBuilder } from "./iconic-items/IconicItem";
+import { isIconicListChecksFirst, isPeriodListChecksFirst, isRatedSkillListChecksFirst } from "types/checks/profile";
+import { IconicListBuilder } from "./IconicItem";
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { PeriodListBuilder } from "components/Period";
 import { RatedSkillListBuilder } from "./RatedSkill";
 
-export class ProfileBuilder extends ComponentBuilder<Profile> {
+export default class ProfileBuilder extends ComponentBuilder<Profile> {
   constructor(useModelSelector: () => Profile,
     iconicListBuilder?: IconicListBuilder,
     periodListBuilder?: PeriodListBuilder,
@@ -63,21 +63,21 @@ export class ProfileBuilder extends ComponentBuilder<Profile> {
     return function Profile() {
       const model = useSelector();
 
-      const sections = [];
+      const leaves = [];
       for (const key in model) {
         const chainSelector = (m: typeof model) => m[key as keyof typeof model]
-        const section = chainSelector(model);
+        const leaf = chainSelector(model);
 
         let builder;
-        if (isIconicListChecksFirst(section)) {
+        if (isIconicListChecksFirst(leaf)) {
           builder = iconicBuilder;
-        } else if (isPeriodListChecksFirst(section)) {
+        } else if (isPeriodListChecksFirst(leaf)) {
           builder = periodBuilder;
-        } else if (isRatedSkillListChecksFirst(section)) {
+        } else if (isRatedSkillListChecksFirst(leaf)) {
           builder = skillBuilder;
         }
 
-        builder && sections.push(
+        builder && leaves.push(
           builder.addModelSelector(
             selectorChainer(useSelector, chainSelector as (m: typeof model) => IconicItem[] & Period[] & RatedSkill[])
           ).Component
@@ -87,7 +87,7 @@ export class ProfileBuilder extends ComponentBuilder<Profile> {
       return (
         <div className="profile">
           {
-            sections.map((Item, index) => <Item key={index} />)
+            leaves.map((Item, index) => <Item key={index} />)
           }
         </div>
       );
