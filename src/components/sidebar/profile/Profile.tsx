@@ -1,9 +1,46 @@
+import { StaticMixedComponentBuilder } from "ctx-ptn/builders/components/stc-mxd-cmp-bld";
+import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+
+export class ProfileBuilder extends StaticMixedComponentBuilder<Profile, {}> {
+  constructor(useModelSelector: () => Profile, builders: {
+    periodList: ListComponentBuilder<Period, {}>,
+    iconicList: ListComponentBuilder<IconicItem, {}>,
+    skillList: ListComponentBuilder<RatedSkill, {}>
+  }) {
+    super(useModelSelector);
+    Object.assign(this.typeBuilders, builders);
+  }
+
+  protected typeBuilders: {
+    periodList: null | ListComponentBuilder<Period, {}>,
+    iconicList: null | ListComponentBuilder<IconicItem, {}>,
+    skillList: null | ListComponentBuilder<RatedSkill, {}>
+  } = {
+    periodList: null,
+    iconicList: null,
+    skillList: null
+  }
+
+  protected typeMaps = {
+    profile: 'iconicList',
+    languages: 'skillList',
+    technologies: 'iconicList',
+    theory: 'iconicList',
+    degrees: 'periodList'
+  }
+}
+
+/*
+
+Old version for comparison (prior to static mixing).
+
+
 import { selectorChainer } from "ctx-ptn/builders/context-builder";
 import { isIconicListChecksFirst, isPeriodListChecksFirst, isRatedSkillListChecksFirst } from "types/checks/profile";
 import { IconicListBuilder } from "./IconicItem";
-import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { PeriodListBuilder } from "components/Period";
 import { RatedSkillListBuilder } from "./RatedSkill";
+import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 
 export default class ProfileBuilder extends ComponentBuilder<Profile, {}> {
   constructor(useModelSelector: () => Profile,
@@ -93,4 +130,4 @@ export default class ProfileBuilder extends ComponentBuilder<Profile, {}> {
       );
     };
   };
-}
+}*/
