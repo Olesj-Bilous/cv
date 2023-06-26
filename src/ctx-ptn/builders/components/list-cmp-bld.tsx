@@ -1,6 +1,7 @@
 import { ComponentBuilder } from "./cmp-bld";
 import { selectorChainer } from "../context-builder";
 import Title from "components/Title";
+import { toKebabCase } from "utils/format-string";
 
 export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<DisplayList<TItem>> {
   constructor(useModelSelector?: () => DisplayList<TItem>, itemBuilder?: ComponentBuilder<TItem>) {
@@ -29,7 +30,7 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<Displ
       const model = selector();
 
       return (
-        <section className={model.className ?? model.title.replaceAll(/[^a-zA-Z\s]+/g, '').replaceAll(/\s+/g, '-').toLowerCase()}>
+        <section className={model.className ?? toKebabCase(model.title) }>
           <Title mainTitle={model.title} subTitle={model.subtitle} />
           {model.introduction && (
             <div className="introduction">
