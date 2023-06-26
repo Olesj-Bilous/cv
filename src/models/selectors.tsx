@@ -7,21 +7,49 @@ import SidebarBuilder from "components/sidebar/Sidebar";
 import { useRootContext } from "./context";
 import MainBuilder from "components/main/Main";
 
-const iconicListBuilder = new IconicListBuilder(undefined, new IconicItemBuilder());
+const iconicListBuilder = new IconicListBuilder(
+  undefined,
+  new IconicItemBuilder()
+);
 
-const periodListBuilder = new PeriodListBuilder(undefined, new PeriodBuilder(undefined,
-  selectorChainer(useRootContext, root => root.localeSettings)
-));
+const ratedSkillListBuilder = new RatedSkillListBuilder(
+  undefined,
+  new RatedSkillBuilder()
+);
 
-const ratedSkillListBuilder = new RatedSkillListBuilder(undefined, new RatedSkillBuilder());
+const periodListBuilder = new PeriodListBuilder(
+  undefined,
+  new PeriodBuilder(
+    undefined,
+    selectorChainer(
+      useRootContext,
+      root => root.localeSettings
+    )
+  )
+);
 
-export const Profile = new ProfileBuilder(selectorChainer(useRootContext, root => root.cv.profile), {
-  periodList: periodListBuilder,
-  iconicList: iconicListBuilder,
-  skillList: ratedSkillListBuilder
-}).Component;
+export const Profile = new ProfileBuilder(
+  selectorChainer(
+    useRootContext, 
+    root => root.cv.profile
+  ), {
+    periodList: periodListBuilder,
+    iconicList: iconicListBuilder,
+    skillList: ratedSkillListBuilder
+  }
+).Component;
 
-export const Main = new MainBuilder(selectorChainer(useRootContext, root => root.cv.main),
-  periodListBuilder).Component;
+export const Sidebar = new SidebarBuilder(
+  selectorChainer(
+    useRootContext,
+    root => root.cv.img
+  )
+).Component;
 
-export const Sidebar = new SidebarBuilder(selectorChainer(useRootContext, root => root.cv.img)).Component;
+export const Main = new MainBuilder(
+  selectorChainer(
+    useRootContext,
+    root => root.cv.main
+  ),
+  periodListBuilder
+).Component;
