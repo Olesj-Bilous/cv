@@ -1,6 +1,6 @@
 
 
-export abstract class ComponentBuilder<TModel> {
+export abstract class ComponentBuilder<TModel, TProps> {
   constructor(useModelSelector?: () => TModel) {
     this.useModelSelector = useModelSelector ?? null;
   }
@@ -29,5 +29,5 @@ export abstract class ComponentBuilder<TModel> {
     if (!this.hasRequired) throw ComponentBuilder.missingRequiredError;
   }
 
-  abstract get Component(): () => JSX.Element;
+  abstract get Component(): (props: TProps) => JSX.Element;
 }

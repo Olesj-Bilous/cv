@@ -3,15 +3,15 @@ import { selectorChainer } from "../context-builder";
 import Title from "components/Title";
 import { toKebabCase } from "utils/format-string";
 
-export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<DisplayList<TItem>> {
-  constructor(useModelSelector?: () => DisplayList<TItem>, itemBuilder?: ComponentBuilder<TItem>) {
+export abstract class ListComponentBuilder<TItem, TProps> extends ComponentBuilder<DisplayList<TItem>, TProps> {
+  constructor(useModelSelector?: () => DisplayList<TItem>, itemBuilder?: ComponentBuilder<TItem, {}>) {
     super(useModelSelector);
     this.itemBuilder = itemBuilder ?? null;
   }
 
-  protected itemBuilder: null | ComponentBuilder<TItem> = null;
+  protected itemBuilder: null | ComponentBuilder<TItem, {}> = null;
 
-  addItemBuilder(builder: ComponentBuilder<TItem>) {
+  addItemBuilder(builder: ComponentBuilder<TItem, {}>) {
     const clone = this.clone();
     clone.itemBuilder = builder;
     return this;
@@ -26,7 +26,7 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<Displ
     const selector = this.useModelSelector!;
     const builder = this.itemBuilder!;
 
-    return function List() {
+    return function List(props: TProps) {
       const model = selector();
 
       return (

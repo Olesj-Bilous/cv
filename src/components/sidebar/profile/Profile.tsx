@@ -5,7 +5,7 @@ import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { PeriodListBuilder } from "components/Period";
 import { RatedSkillListBuilder } from "./RatedSkill";
 
-export default class ProfileBuilder extends ComponentBuilder<Profile> {
+export default class ProfileBuilder extends ComponentBuilder<Profile, {}> {
   constructor(useModelSelector: () => Profile,
     iconicListBuilder?: IconicListBuilder,
     periodListBuilder?: PeriodListBuilder,

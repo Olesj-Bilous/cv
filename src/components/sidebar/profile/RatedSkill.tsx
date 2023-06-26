@@ -3,9 +3,9 @@ import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-export class RatedSkillListBuilder extends ListComponentBuilder<RatedSkill> {}
+export class RatedSkillListBuilder extends ListComponentBuilder<RatedSkill, {}> {}
 
-export class RatedSkillBuilder extends ComponentBuilder<RatedSkill> {
+export class RatedSkillBuilder extends ComponentBuilder<RatedSkill, {}> {
   get Component() {
     this.checkRequired();
     const useSelector = this.useModelSelector!;

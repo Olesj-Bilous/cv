@@ -12,9 +12,9 @@ const icons = {
   'github': icon({ name: 'github', style: 'brands' })
 }
 
-export class IconicListBuilder extends ListComponentBuilder<IconicItem> { }
+export class IconicListBuilder extends ListComponentBuilder<IconicItem, {}> { }
 
-export class IconicItemBuilder extends ComponentBuilder<IconicItem> {
+export class IconicItemBuilder extends ComponentBuilder<IconicItem, {}> {
   get Component() {
     if (!this.hasRequired) throw ComponentBuilder.missingRequiredError;
     const selector = this.useModelSelector!;

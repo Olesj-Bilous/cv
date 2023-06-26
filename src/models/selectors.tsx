@@ -15,13 +15,13 @@ const periodListBuilder = new PeriodListBuilder(undefined, new PeriodBuilder(und
 
 const ratedSkillListBuilder = new RatedSkillListBuilder(undefined, new RatedSkillBuilder());
 
-const profileBuilder = new ProfileBuilder(selectorChainer(useRootContext, root => root.cv.profile),
+export const Profile = new ProfileBuilder(selectorChainer(useRootContext, root => root.cv.profile),
   iconicListBuilder,
   periodListBuilder,
   ratedSkillListBuilder
-);
+).Component;
 
 export const Main = new MainBuilder(selectorChainer(useRootContext, root => root.cv.main),
   periodListBuilder).Component;
 
-export const Sidebar = new SidebarBuilder(selectorChainer(useRootContext, root => root.cv.img), profileBuilder).Component;
+export const Sidebar = new SidebarBuilder(selectorChainer(useRootContext, root => root.cv.img)).Component;

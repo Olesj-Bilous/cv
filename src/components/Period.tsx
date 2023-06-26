@@ -3,9 +3,9 @@ import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
 import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
 import { isLongPeriod } from "types/checks/profile";
 
-export class PeriodListBuilder extends ListComponentBuilder<Period> { }
+export class PeriodListBuilder extends ListComponentBuilder<Period, {}> { }
 
-export class PeriodBuilder extends ComponentBuilder<Period> {
+export class PeriodBuilder extends ComponentBuilder<Period, {}> {
   constructor(useModelSelector?: () => Period, localeSettingsSelector?: () => LocaleSettings) {
     super(useModelSelector);
     this.localeSettingsSelector = localeSettingsSelector ?? null;
