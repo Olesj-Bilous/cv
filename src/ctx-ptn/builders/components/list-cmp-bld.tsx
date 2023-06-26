@@ -32,7 +32,7 @@ export abstract class ListComponentBuilder<TItem> extends ComponentBuilder<Displ
         <section className={model.className ?? model.title.replaceAll(/[^a-zA-Z\s]+/g, '').replaceAll(/\s+/g, '-').toLowerCase()}>
           <Title mainTitle={model.title} subTitle={model.subtitle} />
           {model.introduction && (
-            <div>
+            <div className="introduction">
               {model.introduction}
             </div>
           )}
