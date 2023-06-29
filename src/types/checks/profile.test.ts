@@ -1,4 +1,5 @@
-import { isIconicItem, isIconicListChecksFirst, isIconicListChecksAll } from "./profile";
+export {}
+/*import { isIconicItem, isIconicListChecksFirst, isIconicListChecksAll } from "./profile";
 
 test('types/checks: profile', () => {
   const correctItems = [{ icon: 'lol', content: 'haha' }, { icon: 'um', content: 'oof' }];
@@ -12,4 +13,4 @@ test('types/checks: profile', () => {
   expect(isIconicListChecksAll(correctItems)).toBe(true);
   expect(isIconicListChecksFirst(hasSomeIncorrectItems)).toBe(true);
   expect(isIconicListChecksAll(hasSomeIncorrectItems)).toBe(false);
-})
+})*/

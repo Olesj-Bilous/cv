@@ -4,8 +4,8 @@ const cv: Cv = {
   img: 'logo192.png',
   profile: {
     profile: {
-      title: 'Profiel',
-      items: [{
+      header: { title: 'Profiel' },
+      body: [{
         icon: 'github',
         content: 'github.com'
       }, {
@@ -14,8 +14,8 @@ const cv: Cv = {
       }]
     },
     languages: {
-      title: 'Talen',
-      items: [{
+      header: { title: 'Talen' },
+      body: [{
         skill: 'Nederlands',
         rating: 5,
         scale: 5
@@ -26,33 +26,53 @@ const cv: Cv = {
       }]
     },
     technologies: {
-      title: 'Technologieën',
-      items: []
+      header: { title: 'Technologieën' },
+      body: []
     },
     theory: {
-      title: 'Theorie',
-      items: []
+      header: { title: 'Theorie' },
+      body: []
     },
     degrees: {
-      title: 'Diploma\'s',
-      items: [{
-        mainTitle: 'Programmeren met C#',
-        subTitle: 'VDAB',
-        startDate: new Date(2021, 5),
-        formatOptions: { year: 'numeric'}
+      header: { title: 'Diploma\'s' },
+      body: [{
+        header: {
+          title: 'Programmeren met C#',
+          subtitle: 'VDAB'
+        },
+        body: {
+          startDate: new Date(2021, 5),
+          formatOptions: { year: 'numeric' }
+        }
       }]
     } 
   },
   main: {
-    title: 'Olesj Bilous',
-    subtitle: 'Software developer',
-    introduction: 'I delight in recursion.',
-    items: [{
-      title: 'Ervaring',
-      items: []
+    header: {
+      title: 'Olesj Bilous',
+      subtitle: 'Software ontwikkelaar',
+      introduction: 'I delight in recursion.'
+    },
+    body: [{
+      header: { title: 'Ervaring' },
+      body: [{
+        header: {
+          header: {
+            title: 'Stage software ontwikkeling',
+            subtitle: 'DMVH'
+          },
+          body: {
+            startDate: new Date(2022, 6)
+          }
+        },
+        body: [
+          'Ik breidde de agenda van een backoffice web app uit met een zoekfunctie. Gebruikers kunnen complexe en dynamische queries naar agenda items op een gebruiksvriendelijke manier samenstellen en de resultaten handig overzien.',
+          'Ik zorgde ervoor dat meerdere gebruikers kunnen deelnemen aan een agenda item, en stelde een veilig en consistent systeem van lees - en schrijfpermissies op voor gemeenschappelijke en private velden.'
+        ]
+      }]
     }, {
-      title: 'Projecten',
-      items: []
+      header: { title: 'Projecten' },
+      body: []
     }]
   }
 }

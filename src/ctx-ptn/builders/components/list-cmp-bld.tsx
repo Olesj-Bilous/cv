@@ -1,19 +1,21 @@
-import { ComponentBuilder } from "./cmp-bld";
+import { FreeComponentBuilder } from "./cmp-bld";
 import { selectorChainer } from "../context-builder";
-import Title from "components/Title";
+import Title from "components/DefaultHeader";
 import { toKebabCase } from "utils/format-string";
+import { DefaultHeadedComponentBuilder } from "./sng-cmp-bld";
 
-export abstract class ListComponentBuilder<TItem, TProps> extends ComponentBuilder<DisplayList<TItem>, TProps> {
-  constructor(useModelSelector?: () => DisplayList<TItem>, itemBuilder?: ComponentBuilder<TItem, {}>) {
+export abstract class DefaultDisplayListBuilder<TItem> extends DefaultHeadedComponentBuilder<TItem[]> {}
+
+export abstract class ListComponentBuilder<TItem> extends FreeComponentBuilder<TItem[]> {
+  constructor(useModelSelector?: () => TItem[], itemBuilder?: FreeComponentBuilder<TItem>) {
     super(useModelSelector);
     this.itemBuilder = itemBuilder ?? null;
   }
 
-  protected itemBuilder: null | ComponentBuilder<TItem, {}> = null;
+  protected itemBuilder: null | FreeComponentBuilder<TItem> = null;
 
-  addItemBuilder(builder: ComponentBuilder<TItem, {}>) {
-    const clone = this.clone();
-    clone.itemBuilder = builder;
+  setItemBuilder(builder: FreeComponentBuilder<TItem>) {
+    this.itemBuilder = builder;
     return this;
   }
 
@@ -26,22 +28,15 @@ export abstract class ListComponentBuilder<TItem, TProps> extends ComponentBuild
     const selector = this.useModelSelector!;
     const builder = this.itemBuilder!;
 
-    return function List(props: TProps) {
+    return function List() {
       const model = selector();
 
       return (
-        <section className={model.className ?? toKebabCase(model.title) }>
-          <Title mainTitle={model.title} subTitle={model.subtitle} />
-          {model.introduction && (
-            <div className="introduction">
-              {model.introduction}
-            </div>
-          )}
           <ul>
             {
-              model.items.map((item, index) => {
+              model.map((item, index) => {
                 const Item = builder.addModelSelector(
-                  selectorChainer(selector, list => list.items[index])
+                  selectorChainer(selector, items => items[index])
                 ).Component;
 
                 return (
@@ -52,7 +47,6 @@ export abstract class ListComponentBuilder<TItem, TProps> extends ComponentBuild
               })
             }
           </ul>
-        </section>
       );
     }
   }

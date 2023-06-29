@@ -1,9 +1,9 @@
 interface Profile {
-  profile: DisplayList<IconicItem>,
-  languages: DisplayList<RatedSkill>,
-  technologies: DisplayList<IconicItem>,
-  theory: DisplayList<IconicItem>,
-  degrees: DisplayList<Period>
+  profile: DefaultDisplayList<IconicItem>,
+  languages: DefaultDisplayList<RatedSkill>,
+  technologies: DefaultDisplayList<IconicItem>,
+  theory: DefaultDisplayList<IconicItem>,
+  degrees: DefaultDisplayList<DefaultPeriodHeader>
 }
 
 type IconicItem = {

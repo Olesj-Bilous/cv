@@ -1,9 +1,34 @@
-import Title from "./Title";
+import Title from "./DefaultHeader";
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
-import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
-import { isLongPeriod } from "types/checks/profile";
+import { DefaultDisplayListBuilder, ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { HeadedComponentBuilder } from "ctx-ptn/builders/components/sng-cmp-bld";
 
-export class PeriodListBuilder extends ListComponentBuilder<Period, {}> { }
+export class SectionListBuilder extends ListComponentBuilder<DefaultDisplayList<DefaultPeriodDisplayList>> {}
+
+export class PeriodDetailsDisplayListBuilder extends DefaultDisplayListBuilder<DefaultPeriodDisplayList> { }
+
+export class PeriodDetailsListBuilder extends ListComponentBuilder<DefaultPeriodDisplayList> {}
+
+export class PeriodDetailsBuilder extends HeadedComponentBuilder<DefaultPeriodHeader, string[]> {}
+
+export class PeriodHeaderDisplayListBuilder extends DefaultDisplayListBuilder<DefaultPeriodHeader> {}
+
+export class PeriodHeaderListBuilder extends ListComponentBuilder<DefaultPeriodHeader> { }
+
+export class StringListBuilder extends ListComponentBuilder<string> { }
+
+export class StringComponentBuilder extends ComponentBuilder<string, {}> {
+  get Component() {
+    if (this.useModelSelector == null) throw ComponentBuilder.missingRequiredError;
+    const selector = this.useModelSelector;
+
+    return function StringComponent() {
+      return <>{selector()}</>
+    }
+  }
+}
+
+export class PeriodHeaderBuilder extends HeadedComponentBuilder<DefaultHeader, Period> {}
 
 export class PeriodBuilder extends ComponentBuilder<Period, {}> {
   constructor(useModelSelector?: () => Period, localeSettingsSelector?: () => LocaleSettings) {
@@ -33,31 +58,10 @@ export class PeriodBuilder extends ComponentBuilder<Period, {}> {
       const end = (model.toPresent && settings.present)
         || (model.endDate && model.endDate.toLocaleDateString(settings.locales, model.formatOptions));
       return (
-        <div className="period">
-          <Title mainTitle={model.mainTitle} subTitle={model.subTitle} />
           <div className="date">
             {`${model.startDate.toLocaleDateString(settings.locales, model.formatOptions)}`}
             {end && ` - ${end}`}
           </div>
-          {
-            isLongPeriod(model) && (
-              <div>
-                <div>
-                  {model.summary}
-                </div>
-                {model.details.length && (
-                  <ul>
-                    {
-                      model.details.map((detail, index) => (
-                        <li key={index}>{detail}</li>
-                      ))
-                    }
-                  </ul>
-                )}
-              </div>
-            )
-          }
-        </div>
       )
     }
   }

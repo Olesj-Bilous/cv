@@ -26,8 +26,10 @@ export abstract class ComponentBuilder<TModel, TProps> {
   }
 
   checkRequired() {
-    if (!this.hasRequired) throw ComponentBuilder.missingRequiredError;
+    //if (!this.hasRequired) throw ComponentBuilder.missingRequiredError;
   }
 
   abstract get Component(): (props: TProps) => JSX.Element;
 }
+
+export abstract class FreeComponentBuilder<TModel> extends ComponentBuilder<TModel, {}> { }

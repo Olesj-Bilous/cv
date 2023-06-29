@@ -1,27 +1,36 @@
 interface Cv {
   img: string,
   profile: Profile,
-  main: DisplayList<DisplayList<LongPeriod>>
+  main: DefaultDisplayList<DefaultDisplayList<DefaultPeriodDisplayList>>
 }
 
-interface DisplayList<TItem> {
+interface ISingularModel<THeader, TBody, TFooter> {
+  body: TBody,
+  header?: THeader,
+  footer?: TFooter
+}
+
+interface IHeadedModel<THeader, TBody> extends ISingularModel<THeader, TBody, undefined> { }
+
+interface DefaultHeader {
   title: string,
-  items: TItem[],
-  className?: string,
   subtitle?: string,
   introduction?: string
 }
 
 interface Period {
-  mainTitle : string,
-  subTitle : string,
   startDate : Date,
   endDate? : Date,
   formatOptions? : Intl.DateTimeFormatOptions,
   toPresent? : boolean
 }
 
-interface LongPeriod extends Period {
-  summary: string,
-  details: string[]
-}
+interface PeriodHeader<THeader> extends IHeadedModel<THeader, Period> { }
+
+interface DefaultPeriodHeader extends PeriodHeader<DefaultHeader> { }
+
+interface HeadedDisplayList<THeader, TItem> extends IHeadedModel<THeader, TItem[]> {}
+
+interface DefaultDisplayList<TItem> extends HeadedDisplayList<DefaultHeader, TItem> { }
+
+interface DefaultPeriodDisplayList extends HeadedDisplayList<DefaultPeriodHeader, string> {}

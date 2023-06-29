@@ -1,7 +1,7 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
-import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { DefaultDisplayListBuilder, ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
 import { selectorChainer } from "ctx-ptn/builders/context-builder";
 import { isEmailAddress, isPhoneNumber, isUrl } from "utils/check-string";
 
@@ -12,7 +12,9 @@ const icons = {
   'github': icon({ name: 'github', style: 'brands' })
 }
 
-export class IconicListBuilder extends ListComponentBuilder<IconicItem, {}> { }
+export class IconicDisplayListBuilder extends DefaultDisplayListBuilder<IconicItem> {}
+
+export class IconicListBuilder extends ListComponentBuilder<IconicItem> { }
 
 export class IconicItemBuilder extends ComponentBuilder<IconicItem, {}> {
   get Component() {

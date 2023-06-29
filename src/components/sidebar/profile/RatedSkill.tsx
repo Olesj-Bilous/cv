@@ -1,9 +1,11 @@
 import { ComponentBuilder } from "ctx-ptn/builders/components/cmp-bld";
-import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { DefaultDisplayListBuilder, ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-export class RatedSkillListBuilder extends ListComponentBuilder<RatedSkill, {}> {}
+export class RatedSkillDisplayListBuilder extends DefaultDisplayListBuilder<RatedSkill> {}
+
+export class RatedSkillListBuilder extends ListComponentBuilder<RatedSkill> {}
 
 export class RatedSkillBuilder extends ComponentBuilder<RatedSkill, {}> {
   get Component() {

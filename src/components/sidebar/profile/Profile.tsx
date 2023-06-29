@@ -1,38 +1,38 @@
-import { StaticMixedComponentBuilder } from "ctx-ptn/builders/components/stc-mxd-cmp-bld";
-import { ListComponentBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { PropertyBuilders, StaticMixedComponentBuilder } from "ctx-ptn/builders/components/stc-mxd-cmp-bld";
+import { ListComponentBuilder, DefaultDisplayListBuilder } from "ctx-ptn/builders/components/list-cmp-bld";
+import { NullableProps, OptionalProps, isNonNullableProps } from "ctx-ptn/utils/derived-types";
 
-export class ProfileBuilder extends StaticMixedComponentBuilder<Profile, {}> {
-  constructor(useModelSelector: () => Profile, builders: {
-    periodList: ListComponentBuilder<Period, {}>,
-    iconicList: ListComponentBuilder<IconicItem, {}>,
-    skillList: ListComponentBuilder<RatedSkill, {}>
-  }) {
+interface IProfileBuilders {
+  periodList: DefaultDisplayListBuilder<DefaultPeriodHeader>,
+  iconicList: DefaultDisplayListBuilder<IconicItem>,
+  skillList: DefaultDisplayListBuilder<RatedSkill>
+}
+
+export class ProfileBuilder extends StaticMixedComponentBuilder<Profile, IProfileBuilders> {
+  constructor(useModelSelector?: () => Profile, builders?: OptionalProps<IProfileBuilders>) {
     super(useModelSelector);
-    Object.assign(this.typeBuilders, builders);
+    builders && Object.assign(this.builders, builders);
   }
 
-  protected typeBuilders: {
-    periodList: null | ListComponentBuilder<Period, {}>,
-    iconicList: null | ListComponentBuilder<IconicItem, {}>,
-    skillList: null | ListComponentBuilder<RatedSkill, {}>
-  } = {
+  protected builders : NullableProps<IProfileBuilders> = {
     periodList: null,
     iconicList: null,
     skillList: null
   }
 
-  protected typeMaps = {
-    profile: 'iconicList',
-    languages: 'skillList',
-    technologies: 'iconicList',
-    theory: 'iconicList',
-    degrees: 'periodList'
+  protected modelBuilderMap : PropertyBuilders<Profile, IProfileBuilders> = {
+    profile: b => b.iconicList,
+    languages: b => b.skillList,
+    technologies: b => b.iconicList,
+    theory: b => b.iconicList,
+    degrees: b => b.periodList
   }
 }
 
 /*
 
-Old version for comparison (prior to static mixing).
+Old version for comparison (prior to generic static mixing).
+-- template for future generic dynamic mixing
 
 
 import { selectorChainer } from "ctx-ptn/builders/context-builder";
